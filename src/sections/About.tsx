@@ -1,6 +1,6 @@
+"use client";
 import { SectionHeader } from "@/components/SectionHeader";
 import { Card } from "@/components/Card";
-import StarIcon from "@/assets/icons/star.svg";
 import bookImage from "@/assets/images/book-cover.png";
 import Image from "next/image";
 import JavaScriptIcon from "@/assets/icons/square-js.svg";
@@ -13,6 +13,8 @@ import mapImage from "@/assets/images/map.png";
 import smilyMemoji from "@/assets/images/memoji-smile.png";
 import { CardHeader } from "@/components/CardHeader";
 import { ToolBoxItems } from "@/components/ToolBoxItems";
+import { motion } from "framer-motion";
+import { useRef } from "react";
 const toolBoxItems = [
   { title: "JavaScript", icon: JavaScriptIcon },
   { title: "HTML5", icon: HtmlIcon },
@@ -32,6 +34,7 @@ const hobbies = [
 ];
 
 export const AboutSection = () => {
+  const contstrainedRef = useRef(null);
   return (
     <div className="py-20 lg:py-28">
       <div className="container">
@@ -61,11 +64,15 @@ export const AboutSection = () => {
                 }
                 className=""
               />
-              <ToolBoxItems items={toolBoxItems} className="" />
+              <ToolBoxItems
+                items={toolBoxItems}
+                className=""
+                itemsWrapperClassName="animate-move-left [animation-duration:30s]"
+              />
               <ToolBoxItems
                 items={toolBoxItems}
                 className="mt-6 -translate-x-1/2"
-                itemsWrapperClassName="-translate-x-1/2"
+                itemsWrapperClassName="-translate-x-1/2 animate-move-right [animation-duration:15s]"
               />
             </Card>
           </div>
@@ -76,21 +83,23 @@ export const AboutSection = () => {
                 description={"Explore my interest and hobbies beyond the code."}
                 className="px-6 py-6"
               />
-              <div className="relative flex-1">
+              <div className="relative flex-1" ref={contstrainedRef}>
                 {hobbies.map((hobby) => (
-                  <div
+                  <motion.div
                     key={hobby.title}
                     className="inline-flex gap-2 px-6 bg-gradient-to-r from-emerald-300 to-sky-400 rounded-full py-1.5 absolute"
                     style={{
                       top: hobby.top,
                       left: hobby.left,
                     }}
+                    drag
+                    dragConstraints={contstrainedRef}
                   >
                     <span className="font-medium text-gray-950">
                       {hobby.title}
                     </span>
                     <span>{hobby.emoji}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </Card>
@@ -100,7 +109,9 @@ export const AboutSection = () => {
                 alt="Map Image"
                 className="h-full w-full object-cover object-left-top"
               />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-20 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 after:content-[''] after:absolute after:inset-0 after:outline after:outline-2 after:-outline-offset-2 after:rounded-full after:outline-gray-950/30">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-20 rounded-full after:content-[''] after:absolute after:inset-0 after:outline after:outline-2 after:-outline-offset-2 after:rounded-full after:outline-gray-950/30">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 -z-20 animate-ping [animation-duration:2s]"></div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 -z-10"></div>
                 <Image
                   src={smilyMemoji}
                   alt="Smily Image"

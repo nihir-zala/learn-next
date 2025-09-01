@@ -1,5 +1,6 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { twMerge } from "tailwind-merge";
+import { TechIcon } from "./TechIcon";
 
 export const ToolBoxItems = ({
   items,
@@ -7,8 +8,8 @@ export const ToolBoxItems = ({
   itemsWrapperClassName,
 }: {
   items: {
-    title: string; // ✅ use lowercase string
-    icon: React.ElementType; // ✅ match with usage
+    title: string;
+    icon: React.ElementType;
   }[];
   className?: string;
   itemsWrapperClassName?: string;
@@ -27,20 +28,23 @@ export const ToolBoxItems = ({
             itemsWrapperClassName
           )}
         >
-          {items.map((item) => {
-            const Icon = item.icon;
-            return (
-              <div
-                key={item.title}
-                className="inline-flex items-center gap-4 py-2 px-4 outline outline-2 outline-white/10 rounded-lg"
-              >
-                <span className="">
-                  <Icon />
-                </span>
-                <span className="font-semibold">{item.title}</span>
-              </div>
-            );
-          })}
+          {new Array(2).fill(0).map((_, idx) => (
+            <Fragment key={idx}>
+              {items.map((item) => {
+                return (
+                  <div
+                    key={item.title}
+                    className="inline-flex items-center gap-4 py-2 px-4 outline outline-2 outline-white/10 rounded-lg"
+                  >
+                    <span className="">
+                      <TechIcon component={item.icon}></TechIcon>
+                    </span>
+                    <span className="font-semibold">{item.title}</span>
+                  </div>
+                );
+              })}
+            </Fragment>
+          ))}
         </div>
       </div>
     </>
