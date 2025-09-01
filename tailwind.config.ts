@@ -21,12 +21,21 @@ const config: Config = {
       },
     },
     extend: {
-      fontFamily:{
-        sans: 'var(--font-sans)',
-        serif: 'var(--font-serif)',
-      }
+      fontFamily: {
+        sans: ["var(--font-sans)", "sans-serif"],
+        serif: ["var(--font-serif)", "serif"],
+      },
+      keyframes: {
+        "ping-large": {
+          "75%, 100%": { transform: "scale(3)", opacity: "0" },
+        },
+      },
+      animation: {
+        "ping-large": "ping-large 1s ease-in-out infinite",
+      },
     },
   },
   plugins: [],
 };
+
 export default config;
